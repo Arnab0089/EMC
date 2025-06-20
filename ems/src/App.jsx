@@ -12,10 +12,10 @@ import {
 import SignUp from './component/Auth/SignUp';
 import PrivateRoutes from './utils/PrivateRoutes';
 import ProtectedRoutes from './utils/ProtectedRoutes';
-import Home from './pages/Home';
+// import Home from './pages/Home';
 import Unauthorized from './utils/Unauthorized';
 import AdminSummary from './pages/Dashboard/AdminSummary';
-import EmployeesList from './pages/Employees/employeesList';
+// import EmployeesList from './pages/Employees/employeesList';
 import AdminTaskDashboard from './pages/Dashboard/TaskDashboard/AdminTaskDashboard';
 import DepartmentList from './pages/Dashboard/Departments/DepartmentList';
 import AddDepartment from './pages/Dashboard/Departments/AddDepartment';
