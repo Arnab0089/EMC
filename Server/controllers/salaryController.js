@@ -49,11 +49,22 @@ const addSalary = async (req, res) => {
 
 const getAllSalaries = async (req, res) => {
   try {
-    const salaries = await Salary.find().populate({
-      path: 'employeeId',
-      populate: { path: 'department', select: 'departmentName' },
-    });
-    return res.status(200).json({ success: true, data: salaries });
+    // Get all salaries and populate employee and department
+    const salaries = await Salary.find()
+      .populate({
+        path: 'employeeId',
+        populate: { path: 'department', select: 'departmentName' },
+      })
+      .lean(); // use lean to get plain JS objects
+
+    // Filter to include only those where employee was created by the current admin
+    const filtered = salaries.filter(
+      (sal) =>
+        sal.employeeId &&
+        sal.employeeId.createdBy?.toString() === req.user._id.toString(),
+    );
+
+    return res.status(200).json({ success: true, data: filtered });
   } catch (err) {
     console.error('Error in getAllSalaries:', err);
     return res.status(500).json({ success: false, message: 'Server error' });

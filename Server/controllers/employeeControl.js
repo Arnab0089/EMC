@@ -74,6 +74,7 @@ const addEmployee = async (req, res) => {
       phoneNumber,
       department,
       salary,
+      createdBy: req.user._id, // ✅ associate with current admin
     });
 
     await newEmployee.save();
@@ -95,9 +96,10 @@ const addEmployee = async (req, res) => {
 
 const getallEmployees = async (req, res) => {
   try {
-    const employees = await Employee.find()
+    const employees = await Employee.find({ createdBy: req.user._id })
       .populate('userId', 'username email profileImage')
       .populate('department', 'departmentName');
+
     return res.status(200).json({
       success: true,
       message: 'Employees fetched successfully',
@@ -253,11 +255,13 @@ const deleteEmployee = async (req, res) => {
 
 const getEmployeeCount = async (req, res) => {
   try {
-    const count = await Employee.countDocuments();
+    const count = await Employee.countDocuments({ createdBy: req.user._id }); // ✅ Filter by admin
     res.status(200).json({ success: true, count });
   } catch (err) {
     console.error('Error in getEmployeeCount:', err);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res
+      .status(500)
+      .json({ success: false, message: 'Server error', error: err.message });
   }
 };
 

@@ -44,6 +44,11 @@ const employeeSchema = new Schema({
     type: Number,
     required: true,
   },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User', // admin user
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
