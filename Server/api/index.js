@@ -2,7 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import userRegister from './userSeed.js'; // ✅ import the seeding function
+// ✅ import the seeding function
 import authRouter from '../routes/auth.js'; // ✅ import auth routes
 import connectToDB from '../DB/db.js'; // ✅ import DB connection
 import taskRouter from '../routes/taskRoutes.js';
