@@ -10,7 +10,7 @@ import departmentRouter from '../routes/departmentRoutes.js';
 import employeeRouter from '../routes/employeeMangeRoutes.js'; // ✅ import employee routes
 import salaryRoutes from '../routes/salaryRoutes.js';
 
-connectToDB();
+await connectToDB();
 
 dotenv.config();
 
