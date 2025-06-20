@@ -1,15 +1,13 @@
 import axios from 'axios';
+import { API_BASE_URL as API } from '../url';
 export const fetchDepartment = async () => {
   let departments;
   try {
-    const response = await axios.get(
-      'http://localhost:8000/api/departments/all',
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
+    const response = await axios.get(`${API}/api/departments/all`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-    );
+    });
 
     console.log('Fetched departments:', response.data);
 
@@ -26,14 +24,11 @@ export const fetchDepartment = async () => {
 export const getEmployee = async (id) => {
   let employee;
   try {
-    const response = await axios.get(
-      `http://localhost:8000/api/employees/departments/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
+    const response = await axios.get(`${API}/api/employees/departments/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-    );
+    });
     if (response.data.success) {
       employee = response.data.data;
     }

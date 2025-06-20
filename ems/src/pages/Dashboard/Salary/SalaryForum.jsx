@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { fetchDepartment, getEmployee } from '../../../utils/EmployeeHelper';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL as API } from '../../../url';
 
 export default function SalaryForm() {
   const [departments, setDepartments] = useState([]);
@@ -32,13 +33,9 @@ export default function SalaryForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        'http://localhost:8000/api/salary/add',
-        employee,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        },
-      );
+      const res = await axios.post(`${API}/api/salary/add`, employee, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
       if (res.data.success) {
         console.log('Salary submitted successfully:', res.data);
         navigate('/admin-dashboard/salary');

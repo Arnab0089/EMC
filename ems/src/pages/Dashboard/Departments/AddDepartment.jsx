@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL as API } from '../../../url';
 
 export default function AddDepartment() {
   const [departmentName, setDepartmentName] = useState('');
@@ -12,7 +13,7 @@ export default function AddDepartment() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/departments/add',
+        `${API}/api/departments/add`,
         { departmentName, description }, // ⬅️ no totalEmployees here
         {
           headers: {

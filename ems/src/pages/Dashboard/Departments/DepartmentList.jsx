@@ -104,6 +104,7 @@ import DataTable from 'react-data-table-component';
 import DeptHelper from './DeptHelper';
 import departmentTableStyles from './DepartmentStyle';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL as API } from '../../../url';
 
 export default function DepartmentList() {
   const [departments, setDepartments] = useState([]);
@@ -115,14 +116,11 @@ export default function DepartmentList() {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get(
-          'http://localhost:8000/api/departments/all',
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
+        const response = await axios.get(`${API}/api/departments/all`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        );
+        });
         setDepartments(response.data.data);
         setFilteredDepartments(response.data.data);
       } catch (err) {

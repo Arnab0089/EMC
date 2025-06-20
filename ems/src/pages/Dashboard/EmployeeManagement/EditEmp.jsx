@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchDepartment } from '../../../utils/EmployeeHelper';
+import { API_BASE_URL as API } from '../../../url';
 
 export default function EditEmp() {
   const { id } = useParams();
@@ -29,14 +30,11 @@ export default function EditEmp() {
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8000/api/employees/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
+        const response = await axios.get(`${API}/api/employees/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        );
+        });
         if (response.data.success) {
           setEmployee(response.data.data);
         }

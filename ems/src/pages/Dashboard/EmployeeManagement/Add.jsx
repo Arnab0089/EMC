@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchDepartment } from '../../../utils/EmployeeHelper';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL as API } from '../../../url';
 
 export default function Add() {
   const [departments, setDepartments] = useState([]);
@@ -48,7 +49,7 @@ export default function Add() {
       }
 
       const response = await axios.post(
-        'http://localhost:8000/api/employees/add',
+        `${API}/api/employees/add`,
         formDataObj,
         {
           headers: {

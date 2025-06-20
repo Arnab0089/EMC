@@ -1,4 +1,5 @@
 // src/components/Employee/EmpHelper.js
+import { API_BASE_URL as API } from '../../../url';
 
 const EmployeeHelper = (handleEdit, handleDelete, handleView) => [
   {
@@ -14,7 +15,7 @@ const EmployeeHelper = (handleEdit, handleDelete, handleView) => [
         <img
           src={
             row.userId?.profileImage
-              ? `http://localhost:8000/uploads/${row.userId.profileImage}`
+              ? `${API}/uploads/${row.userId.profileImage}`
               : '/default-avatar.png'
           }
           alt="Profile"

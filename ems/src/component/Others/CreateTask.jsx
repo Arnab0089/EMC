@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL as API } from '../../url';
 
 export default function CreateTask({ onTaskCreated }) {
   const [title, setTitle] = useState('');
@@ -13,10 +14,17 @@ export default function CreateTask({ onTaskCreated }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const taskData = { title, description, date, assignedTo, category, priority };
+    const taskData = {
+      title,
+      description,
+      date,
+      assignedTo,
+      category,
+      priority,
+    };
 
     try {
-      const res = await axios.post('http://localhost:8000/api/tasks/create', taskData, {
+      const res = await axios.post(`${API}/api/tasks/create`, taskData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -25,7 +33,6 @@ export default function CreateTask({ onTaskCreated }) {
       onTaskCreated(res.data);
       setMessage('Task created successfully');
 
-      
       setTitle('');
       setDescription('');
       setDate('');
@@ -39,7 +46,10 @@ export default function CreateTask({ onTaskCreated }) {
 
   return (
     <div className="min-h-content flex items-center justify-center  p-12">
-      <form onSubmit={handleSubmit} className="bg-light-bg p-8 rounded shadow-md w-full max-w-md space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-light-bg p-8 rounded shadow-md w-full max-w-md space-y-4"
+      >
         <h2 className="text-2xl font-bold mb-4 text-center">Create Task</h2>
 
         <input

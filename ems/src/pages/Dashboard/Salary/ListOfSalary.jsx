@@ -3,6 +3,7 @@ import axios from 'axios';
 import DataTable from 'react-data-table-component';
 import { useNavigate } from 'react-router-dom';
 import employeeTableStyles from '../EmployeeManagement/EmployeeStyle';
+import { API_BASE_URL as API } from '../../../url';
 
 export default function ListOfSalary() {
   const [salaryData, setSalaryData] = useState([]);
@@ -12,7 +13,7 @@ export default function ListOfSalary() {
   useEffect(() => {
     const fetchSalaries = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/api/salary/all', {
+        const res = await axios.get(`${API}/api/salary/all`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },

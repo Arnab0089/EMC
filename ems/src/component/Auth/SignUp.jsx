@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { API_BASE_URL as API } from '../../url';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
-  const [email, setEmail]     = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole]         = useState('user');
+  const [role, setRole] = useState('user');
   const [profileImage, setProfileImage] = useState('');
   const [message, setMessage] = useState('');
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = { username, email, password, role, profileImage };
 
     try {
-      const res = await axios.post('http://localhost:8000/api/auth/signup', formData);
+      const res = await axios.post(`${API}/api/auth/signup`, formData);
       setMessage(res.data.message);
-        setTimeout(() => navigate('/login'), 2000);
+      setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
       setMessage(err.response?.data?.message || 'Signup failed');
     }
@@ -27,7 +27,10 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-medium-dark-bg">
-      <form onSubmit={handleSubmit} className="bg-light-bg p-8 rounded shadow-md w-full max-w-md space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-light-bg p-8 rounded shadow-md w-full max-w-md space-y-4"
+      >
         <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
 
         <input
@@ -86,7 +89,6 @@ const SignUp = () => {
         >
           Register
         </button>
-        
 
         {message && <p className="text-center text-sm mt-2">{message}</p>}
       </form>

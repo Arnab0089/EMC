@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL as API } from '../../url';
 
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/tasks/all', {
+      const res = await axios.get(`${API}/api/tasks/all`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      
+
       console.log(res.data);
       setTasks(res.data.tasks);
     } catch (err) {
@@ -40,7 +41,9 @@ export default function TaskList() {
               </span>
               <span>{new Date(task.date).toLocaleDateString()}</span>
             </div>
-            <h3 className="text-lg font-bold mb-1 text-blue-300">{task.title}</h3>
+            <h3 className="text-lg font-bold mb-1 text-blue-300">
+              {task.title}
+            </h3>
             <p className="text-sm text-gray-200">{task.description}</p>
           </div>
         ))}

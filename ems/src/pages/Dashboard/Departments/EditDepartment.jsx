@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL as API } from '../../../url';
 
 export default function EditDepartment() {
   const { id } = useParams();
@@ -15,14 +16,11 @@ export default function EditDepartment() {
   useEffect(() => {
     const fetchDepartment = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8000/api/departments/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
+        const response = await axios.get(`${API}/api/departments/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        );
+        });
 
         const dep = response.data.data;
         setDepartmentName(dep.departmentName);
@@ -43,7 +41,7 @@ export default function EditDepartment() {
 
     try {
       await axios.put(
-        `http://localhost:8000/api/departments/update/${id}`,
+        `${API}/api/departments/update/${id}`,
         {
           departmentName,
           description,

@@ -4,6 +4,7 @@ import axios from 'axios';
 import DataTable from 'react-data-table-component';
 import EmployeeHelper from './EmpHelper';
 import employeeTableStyles from './EmployeeStyle';
+import { API_BASE_URL as API } from '../../../url';
 
 export default function List() {
   const [employees, setEmployees] = useState([]);
@@ -16,14 +17,11 @@ export default function List() {
   const fetchEmployees = async () => {
     setEmpLoading(true);
     try {
-      const response = await axios.get(
-        'http://localhost:8000/api/employees/all',
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
+      const response = await axios.get(`${API}/api/employees/all`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      );
+      });
       setEmployees(response.data.data);
       setFilteredEmployees(response.data.data);
     } catch (err) {
@@ -58,7 +56,7 @@ export default function List() {
 
     try {
       const response = await axios.delete(
-        `http://localhost:8000/api/employees/delete/${row._id}`,
+        `${API}/api/employees/delete/${row._id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,

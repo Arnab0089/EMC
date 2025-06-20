@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL as API } from '../../../url';
 
 export default function ViewEmployee() {
   const { id } = useParams();
@@ -10,14 +11,11 @@ export default function ViewEmployee() {
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8000/api/employees/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
+        const response = await axios.get(`${API}/api/employees/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        );
+        });
         if (response.data.success) {
           setEmployee(response.data.data);
         }
@@ -32,7 +30,7 @@ export default function ViewEmployee() {
     return <p className="text-center mt-10 text-gray-600">Loading...</p>;
 
   const imageUrl = employee.userId?.profileImage
-    ? `http://localhost:8000/uploads/${employee.userId.profileImage}`
+    ? `${API}/uploads/${employee.userId.profileImage}`
     : '/default-avatar.png';
 
   const formatINR = (value) =>
